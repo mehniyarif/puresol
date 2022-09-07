@@ -1,0 +1,114 @@
+<template>
+<div class="task-wrapper">
+    <div class="task-left">
+        <div class="status">{{status.toUpperCase()}}</div>
+        <div class="title">{{title}}</div>
+        <div class="date">{{date}}</div>
+    </div>
+    <div class="task-right">
+        <puresol-icon name="three-dots" height="15" width="10"></puresol-icon>
+        <div class="point">
+            <span>{{point}}</span>
+            <puresol-icon name="bookmark-star-fill" height="15" width="10"></puresol-icon>
+        </div>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    name: "task",
+    components: {},
+
+    props:{
+        status: String,
+        title: String,
+        date: String,
+        point: [Number, String]
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400&display=swap');
+
+.task-wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 15px 10px 15px;
+  gap: 68px;
+
+  width: 320px;
+  min-height: 116px;
+
+  padding: 10px;
+  background: #FBFBFB;
+  box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
+  border-radius: 2px;
+
+  .task-left{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .status{
+      width: max-content;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px;
+      height: 14px;
+      line-height: 0%;
+      padding: 7px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #FFFDFF;
+      background: #556783;
+      border-radius: 2px;
+    }
+
+    .title{
+      width: 108px;
+      font-family: 'IBM Plex Sans Devanagari', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #000000;
+    }
+
+    .date{
+      height: 18px;
+      font-family: 'IBM Plex Sans Devanagari', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+
+      color: #828282;
+    }
+  }
+
+  .task-right{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .point{
+      span{
+        font-family: 'IBM Plex Sans Devanagari', sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        margin-right: 5px;
+
+        color: #828282;
+      }
+    }
+  }
+}
+</style>
