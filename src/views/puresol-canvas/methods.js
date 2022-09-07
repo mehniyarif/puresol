@@ -1,7 +1,7 @@
 global.Buffer = global.Buffer || require("buffer").Buffer;
 export default {
     methods: {
-        addTask(sectionKey){
+        addTask(sectionKey) {
             this.sections[sectionKey].tasks.push(
                 {
                     status: "PENDING",
@@ -12,34 +12,33 @@ export default {
             )
             this.setStorage()
         },
-        deleteSection(sectionKey){
+        deleteSection(sectionKey) {
             this.sections.splice(sectionKey, 1)
             this.setStorage()
         },
-        changeSectionTitle(e, sectionKey){
+        changeSectionTitle(e, sectionKey) {
             this.sections[sectionKey].head = e.target.value
             this.setStorage()
         },
-        getStorage(){
+        getStorage() {
             let sections = localStorage.getItem(`sections`)
-            if(sections){
-                console.log("test")
-                this.sections =  JSON.parse(atob(sections))
+            if (sections) {
+                this.sections = JSON.parse(atob(sections))
             }
         },
-        setStorage(){
+        setStorage() {
             let objJsonStr = JSON.stringify(this.sections);
             let base64Value = Buffer.from(objJsonStr).toString("base64");
             localStorage.setItem(`sections`, base64Value)
         },
-        getPrettyDate(){
+        getPrettyDate() {
 
-            let monthNames =["January","February","March","April",
-                "May","June","July","August",
-                "September", "October","November","December"];
+            let monthNames = ["January", "February", "March", "April",
+                "May", "June", "July", "August",
+                "September", "October", "November", "December"];
 
-            let weekDays =["Sun","Mon","Tue","Wed",
-                "Thu","Fri","Sat"];
+            let weekDays = ["Sun", "Mon", "Tue", "Wed",
+                "Thu", "Fri", "Sat"];
 
             let date = new Date()
             let day = date.getDate();
@@ -50,6 +49,16 @@ export default {
             let weekDay = date.getDay();
 
             return `${day} ${monthName} - ${weekDays[weekDay]}`;
+        },
+        arrayMove(arr, oldIndex, newIndex) {
+            if (newIndex >= arr.length) {
+                let k = newIndex - arr.length + 1;
+                while (k--) {
+                    arr.push(undefined);
+                }
+            }
+            arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
+            return arr; // for testing
         }
     }
 }

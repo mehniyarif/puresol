@@ -1,6 +1,8 @@
 export default {
     data() {
         return {
+            firstDragItem:null,
+            secondDragItem:null,
             sectionColors: [
                 "#4AF2B6",
                 "#FF7F3F",
@@ -49,7 +51,7 @@ export default {
                         },
                         {
                             status: "ON HOLD",
-                            title: "New Task Item",
+                            title: "Section drag and drop feature",
                             date: "5 March - Wed",
                             point: 5
                         }
