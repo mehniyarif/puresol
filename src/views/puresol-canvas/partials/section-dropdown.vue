@@ -38,7 +38,6 @@ export default {
             this.over = true
         },
         dropdownToggle(){
-            console.log("testd")
             this.showDropdown =! this.showDropdown
         },
         closeDropdown(){

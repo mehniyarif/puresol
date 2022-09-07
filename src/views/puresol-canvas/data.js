@@ -1,6 +1,15 @@
 export default {
     data() {
         return {
+            sectionColors: [
+                "#4AF2B6",
+                "#FF7F3F",
+                "#FBDF07",
+                "#89CFFD",
+                "#2F80ED",
+                "#F2684A",
+                "#F94892"
+            ],
             sections: [
                 {
                     head: "Section 1",
