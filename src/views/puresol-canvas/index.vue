@@ -17,7 +17,8 @@ export default {
     provide(){
       return {
           addTask: this.addTask,
-          deleteSection: this.deleteSection
+          deleteSection: this.deleteSection,
+          changeSectionTitle: this.changeSectionTitle
       }
     },
     components: {

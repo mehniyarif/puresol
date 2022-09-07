@@ -18,13 +18,13 @@ export default {
                     tasks: [
                         {
                             status: "PENDING",
-                            title: "New Task Item",
+                            title: "Add Task Feature",
                             date: "5 March - Wed",
                             point: 5
                         },
                         {
                             status: "ACTIVE",
-                            title: "New Task Item",
+                            title: "Delete Section Feature",
                             date: "5 March - Wed",
                             point: 5
                         }
@@ -37,7 +37,7 @@ export default {
                     tasks: [
                         {
                             status: "ACTIVE",
-                            title: "New Task Item",
+                            title: "Change Section Title Feature",
                             date: "5 March - Wed",
                             point: 5
                         },

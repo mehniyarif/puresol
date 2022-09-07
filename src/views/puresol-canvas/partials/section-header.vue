@@ -1,7 +1,7 @@
 <template>
 <div class="section-header" :style="styles">
     <div class="top"></div>
-    <span class="title">{{head}}</span>
+    <input type="text" @input="changeSectionTitle($event, sectionKey)" :value="head" class="title"/>
     <section-dropdown></section-dropdown>
 </div>
 </template>
@@ -10,6 +10,7 @@
 import SectionDropdown from "./section-dropdown"
 export default {
     name: "section-header",
+    inject: ["sectionKey", "changeSectionTitle"],
     components: {
         SectionDropdown
     },
@@ -55,6 +56,7 @@ export default {
 
   .title {
     height: 31px;
+    width: 75%;
     font-family: 'IBM Plex Sans Devanagari', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -62,6 +64,12 @@ export default {
     line-height: 31px;
     letter-spacing: -0.02em;
     color: #000000;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    &:focus{
+      border-bottom: 1px solid rgba(0,0,0,.1);
+    }
   }
 
 }

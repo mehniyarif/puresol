@@ -13,6 +13,9 @@ export default {
         deleteSection(sectionKey){
             this.sections.splice(sectionKey, 1)
         },
+        changeSectionTitle(e, sectionKey){
+            this.sections[sectionKey].head = e.target.value
+        },
         getPrettyDate(){
 
             let monthNames =["January","February","March","April",

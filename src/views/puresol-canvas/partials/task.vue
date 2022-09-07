@@ -66,9 +66,11 @@ export default {
 
   .task-left {
     display: flex;
+    flex-grow: 1;
     justify-content: space-between;
     flex-direction: column;
     align-items: flex-start;
+    text-align: left;
 
     .status {
       width: max-content;
@@ -88,7 +90,6 @@ export default {
     }
 
     .title {
-      width: 108px;
       font-family: 'IBM Plex Sans Devanagari', sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -114,6 +115,7 @@ export default {
     justify-content: space-between;
     flex-direction: column;
     align-items: flex-end;
+    flex-grow: 0;
 
     .point {
       span {
