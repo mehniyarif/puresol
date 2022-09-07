@@ -8,6 +8,8 @@
 
 <style lang="scss">
 @import url("./assets/css/reboot/bootstrap-reboot.css");
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@400&display=swap');
 body{
   background-color: #F2F2F2;
 }

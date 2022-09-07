@@ -13,6 +13,12 @@ export default {
         head: String,
         topColor: String,
         backgroundColor: String,
+        sectionKey: Number
+    },
+    provide(){
+      return {
+          sectionKey: this.sectionKey
+      }
     },
     components:{
         SectionHeader

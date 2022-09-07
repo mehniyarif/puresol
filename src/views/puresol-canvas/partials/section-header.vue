@@ -2,16 +2,17 @@
 <div class="section-header" :style="styles">
     <div class="top"></div>
     <span class="title">{{head}}</span>
-    <puresol-icon name="three" class="icon" width="16" height="16"></puresol-icon>
+    <section-dropdown></section-dropdown>
 </div>
 </template>
 
 <script>
-
+import SectionDropdown from "./section-dropdown"
 export default {
     name: "section-header",
-    components: {},
-
+    components: {
+        SectionDropdown
+    },
     props:{
         head: String,
         topColor: String,
