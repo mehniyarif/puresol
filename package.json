@@ -1,9 +1,9 @@
 {
   "name": "puresol",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
