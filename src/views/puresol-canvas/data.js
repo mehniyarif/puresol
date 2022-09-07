@@ -18,13 +18,13 @@ export default {
                     tasks: [
                         {
                             status: "PENDING",
-                            title: "Add Task Feature",
+                            title: "Add task feature",
                             date: "5 March - Wed",
                             point: 5
                         },
                         {
                             status: "ACTIVE",
-                            title: "Delete Section Feature",
+                            title: "Delete section feature",
                             date: "5 March - Wed",
                             point: 5
                         }
@@ -37,13 +37,13 @@ export default {
                     tasks: [
                         {
                             status: "ACTIVE",
-                            title: "Change Section Title Feature",
+                            title: "Change section title feature",
                             date: "5 March - Wed",
                             point: 5
                         },
                         {
                             status: "ON HOLD",
-                            title: "New Task Item",
+                            title: "Canvas data saved in local storage as base64",
                             date: "5 March - Wed",
                             point: 0
                         },

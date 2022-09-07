@@ -25,6 +25,9 @@ export default {
         SectionContainer,
         Task
     },
+    created() {
+        this.getStorage()
+    }
 
 }
 </script>

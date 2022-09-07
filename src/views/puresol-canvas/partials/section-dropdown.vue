@@ -32,7 +32,7 @@ export default {
             setTimeout(()=>{
                 if(this.over) return
                 this.showDropdown = false
-            },3000)
+            },2000)
         },
         mouseEnter(){
             this.over = true
@@ -82,7 +82,7 @@ export default {
         gap: 15px;
         font-family: 'IBM Plex Sans', sans-serif;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 400;
         font-size: .9em;
         justify-content: flex-start;
         border: none;

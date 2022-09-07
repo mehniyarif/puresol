@@ -1,3 +1,4 @@
+global.Buffer = global.Buffer || require("buffer").Buffer;
 export default {
     methods: {
         addTask(sectionKey){
@@ -9,12 +10,27 @@ export default {
                     point: 0
                 }
             )
+            this.setStorage()
         },
         deleteSection(sectionKey){
             this.sections.splice(sectionKey, 1)
+            this.setStorage()
         },
         changeSectionTitle(e, sectionKey){
             this.sections[sectionKey].head = e.target.value
+            this.setStorage()
+        },
+        getStorage(){
+            let sections = localStorage.getItem(`sections`)
+            if(sections){
+                console.log("test")
+                this.sections =  JSON.parse(atob(sections))
+            }
+        },
+        setStorage(){
+            let objJsonStr = JSON.stringify(this.sections);
+            let base64Value = Buffer.from(objJsonStr).toString("base64");
+            localStorage.setItem(`sections`, base64Value)
         },
         getPrettyDate(){
 

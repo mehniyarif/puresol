@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <router-link to="/">Puresol-canvas</router-link> |
-    <router-link to="/puresol-form">Puresol-form</router-link>
+    <router-link to="/">Puresol Canvas</router-link> |
+    <router-link to="/puresol-form">Puresol Form</router-link>
   </nav>
   <router-view/>
 </template>
