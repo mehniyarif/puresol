@@ -122,6 +122,19 @@ export default {
         // ONLY TASK METHODS
         // ONLY TASK METHODS
         // ONLY TASK METHODS
+        insertPlaceholderTask(currentTask){
+            let placeholderTask = document.createElement("div")
+            placeholderTask.setAttribute("class", "task-wrapper-placeholder")
+            placeholderTask.setAttribute("id", "task-wrapper-placeholder-id")
+            placeholderTask.textContent = "Drop Here"
+            placeholderTask.addEventListener("dragend", this.endDragTask)
+            placeholderTask.addEventListener("dragstart", this.startDragTask)
+            placeholderTask.addEventListener("dragleave", (evt)=>{evt.target.remove()})
+            if(!currentTask.parentNode.querySelectorAll(".task-wrapper-placeholder").length){
+                currentTask.parentNode.insertBefore(placeholderTask, currentTask)
+            }
+
+        },
         startDragTask(evt){
             console.log("task start")
             this.sectionDragDropEvent = false
@@ -137,31 +150,38 @@ export default {
 
             if(currentTask instanceof HTMLElement){
 
-                if(this.taskOverElement && this.taskOverElement !== currentTask){
-                    let beforeElementId = this.taskOverElement.getAttribute("id")
-                    this.taskOverElement.style.backgroundColor = this.beforeTaskStyles[beforeElementId].backgroundColor
-                }
+                document.getElementById("task-wrapper-placeholder-id")?.remove()
 
-                currentTask.style.backgroundColor = "red"
+                // currentTask.style.backgroundColor = "red"
+                this.insertPlaceholderTask(currentTask)
 
                 this.taskOverElement = currentTask
             }
         },
         onDropTask(evt) {
+            document.getElementById("task-wrapper-placeholder-id")?.remove()
             let currentTask = evt.target.closest(".task-wrapper")
 
 
-            if(currentTask instanceof HTMLElement){
-                if(this.taskOverElement){
-                    let currentElementId = this.taskOverElement.getAttribute("id")
-                    currentTask.style.backgroundColor = this.beforeTaskStyles[currentElementId].backgroundColor
-                }
-            }
+            // if(currentTask instanceof HTMLElement){
+            //     if(this.taskOverElement){
+            //         let currentElementId = this.taskOverElement.getAttribute("id")
+            //         currentTask.style.backgroundColor = this.beforeTaskStyles[currentElementId].backgroundColor
+            //     }
+            // }
         },
         onDragLeaveTask(evt){
+
+            let currentTask = evt.target.closest(".task-wrapper")
+
+            if(!currentTask instanceof HTMLElement){
             if(this.taskOverElement){
-                let beforeElementId = this.taskOverElement.getAttribute("id")
-                this.taskOverElement.style.backgroundColor = this.beforeTaskStyles[beforeElementId].backgroundColor
+
+                document.getElementById("task-wrapper-placeholder-id")?.remove()
+
+                // let beforeElementId = this.taskOverElement.getAttribute("id")
+                // this.taskOverElement.style.backgroundColor = this.beforeTaskStyles[beforeElementId].backgroundColor
+            }
             }
         },
         endDragTask(evt){

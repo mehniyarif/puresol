@@ -48,8 +48,25 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
+.task-wrapper-placeholder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15px 10px 15px;
+  gap: 68px;
+  width: 320px;
+  min-height: 116px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  color: rgba(0,0,0,.5);
+  transition-delay: 50ms;
+  background: #FBFBFB;
+  box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
+  border-radius: 2px;
+  border: 2px dashed rgba(118, 96, 126, 0.15);
+}
 .task-wrapper {
   display: flex;
   justify-content: space-between;
