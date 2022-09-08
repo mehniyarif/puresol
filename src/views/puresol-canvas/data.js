@@ -1,8 +1,15 @@
 export default {
     data() {
         return {
-            firstDragItem:null,
-            secondDragItem:null,
+            taskDraggableElement:null,
+            sectionDraggableElement:null,
+            taskOverElement:null,
+            sectionOverElement:null,
+            replaceDragItem:null,
+            sectionDragDropEvent:true,
+            taskDragDropEvent:true,
+            beforeTaskStyles: {},
+            beforeSectionStyles: {},
             sectionColors: [
                 "#4AF2B6",
                 "#FF7F3F",

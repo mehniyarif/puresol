@@ -1,22 +1,31 @@
 <template>
-    <div class="puresol-canvas-wrapper drop-zone"
-         @drop="onDropSection($event, 1)"
-         @dragenter.prevent
-         @dragover.prevent="onDragOverSection"
-         @dragleave.prevent="onDragLeaveSection">
+    <div class="puresol-canvas-wrapper">
 
-        <section-container class="drag-el section-container"
+        <section-container class="section-container"
+                           @drop="onDrop($event, 1)"
+                           @dragenter.prevent
+                           @dragover.prevent="onDragOver"
+                           @dragleave.prevent="onDragLeave"
+
                            :add-task="addTask"
                            :delete-section="deleteSection"
-                           :section-key="key"
-                           v-for="(section, key) in sections"
-                           :key="key" v-bind="section"
-                           :draggable="true"
-                           :dragKey="key"
+                           :section-key="sectionKey"
+                           v-for="(section, sectionKey) in sections"
+                           :id="`section-${sectionKey}`"
+                           :key="sectionKey" v-bind="section"
+                           :draggable="sectionDragDropEvent"
+                           :sectionDragKey="sectionKey"
                            @dragend="endDragSection($event, section)"
                            @dragstart="startDragSection($event, section)">
 
-            <task v-for="(task, key) in section.tasks" :key="key" v-bind="task" :draggable="true"></task>
+            <task v-for="(task, taskKey) in section.tasks"
+                  :key="taskKey" v-bind="task"
+                  :id="`section-${sectionKey}-task-${taskKey}`"
+                  :draggable="taskDragDropEvent"
+                  @dragend="endDragTask($event, task)"
+                  :sectionDragKey="taskKey"
+                  @dragstart="startDragTask($event, task)"
+            ></task>
         </section-container>
     </div>
 </template>
@@ -26,12 +35,11 @@ import SectionContainer from "./partials/section-container"
 import Task from "./partials/task"
 import Data from "@/views/puresol-canvas/data";
 import Methods from "@/views/puresol-canvas/methods";
-import SectionDragDrop from "@/views/puresol-canvas/section-drag-drop";
-import TaskDragDrop from "@/views/puresol-canvas/task-drag-drop";
+import DragDrop from "@/views/puresol-canvas/drag-drop";
 
 export default {
     name: 'Puresol-Canvas',
-    mixins: [Data, Methods, SectionDragDrop, TaskDragDrop],
+    mixins: [Data, Methods, DragDrop],
     provide() {
         return {
             addTask: this.addTask,
@@ -45,6 +53,10 @@ export default {
     },
     created() {
         this.getStorage()
+    },
+    mounted() {
+        this.setBeforeStyles()
+        console.log(this.beforeTaskStyles)
     }
 
 }
@@ -55,5 +67,9 @@ export default {
   display: flex;
   gap: 50px;
   padding-inline: 5%;
+}
+
+.section-container{
+  transition-delay: 50ms;
 }
 </style>

@@ -58,7 +58,7 @@ export default {
 
   width: 320px;
   min-height: 116px;
-
+  transition-delay: 50ms;
   padding: 10px;
   background: #FBFBFB;
   box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
@@ -118,6 +118,7 @@ export default {
     flex-grow: 0;
 
     .point {
+      display: flex;
       span {
         font-family: 'IBM Plex Sans Devanagari', sans-serif;
         font-weight: 400;

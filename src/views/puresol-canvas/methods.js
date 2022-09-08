@@ -59,6 +59,14 @@ export default {
             }
             arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
             return arr; // for testing
-        }
+        },
+        setBeforeStyles(){
+            document.querySelectorAll(".task-wrapper").forEach((element)=>{
+                this.beforeTaskStyles[element.getAttribute('id')] = {...window.getComputedStyle(element)}
+            })
+            document.querySelectorAll(".section-container").forEach((element)=>{
+                this.beforeSectionStyles[element.getAttribute('id')] = {...window.getComputedStyle(element)}
+            })
+        },
     }
 }
