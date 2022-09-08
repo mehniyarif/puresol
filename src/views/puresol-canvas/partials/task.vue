@@ -91,6 +91,18 @@ export default {
   background: #FBFBFB;
   box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
   border-radius: 2px;
+  position: relative;
+  z-index: 2;
+  &:before{
+    position: absolute;
+    top: -20px;
+    content: " ";
+    background-color: transparent;
+    left: -15px;
+    z-index: 1;
+    width: calc(100% + 30px);
+    height: calc(100% + 40px);
+  }
 
   .task-left {
     display: flex;

@@ -56,12 +56,11 @@ export default {
     },
     mounted() {
         this.setBeforeStyles()
-        console.log(this.beforeTaskStyles)
     }
 
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .puresol-canvas-wrapper {
   width: auto;
   display: flex;
@@ -69,7 +68,4 @@ export default {
   padding-inline: 5%;
 }
 
-.section-container{
-  transition-delay: 50ms;
-}
 </style>

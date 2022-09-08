@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .section-container{
   display: flex;
   flex-direction: column;
@@ -54,5 +54,24 @@ export default {
   width: 350px;
   height: max-content;
   border-radius: 5px;
+}
+
+.section-container-placeholder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 30px;
+  margin-top: 10px;
+  gap: 10px;
+  min-width: 350px;
+  height: 50vh;
+  border-radius: 5px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  color: rgba(0,0,0,.5);
+  transition-delay: 50ms;
+  background: transparent;
+  box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
+  border: 2px dashed rgba(118, 96, 126, 0.15);
 }
 </style>

@@ -25,6 +25,23 @@ export default {
         // ONLY SECTION METHODS
         // ONLY SECTION METHODS
         // ONLY SECTION METHODS
+        insertPlaceholderSection(currentSection, position="before"){
+            let placeholderSection = document.createElement("div")
+            placeholderSection.setAttribute("class", "section-container-placeholder")
+            placeholderSection.setAttribute("id", "section-container-placeholder-id")
+            placeholderSection.textContent = "Drop Here"
+            placeholderSection.addEventListener("dragend", this.endDragSection)
+            placeholderSection.addEventListener("dragstart", this.startDragSection)
+            placeholderSection.addEventListener("dragleave", (evt)=>{evt.target.remove()})
+            if(!currentSection.parentNode.querySelectorAll(".section-container-placeholder").length){
+                if(position === "before"){
+                    currentSection.parentNode.insertBefore(placeholderSection, currentSection)
+                    return
+                }
+                currentSection.parentNode.insertBefore(placeholderSection, currentSection.nextSibling)
+            }
+
+        },
 
         startDragSection(evt){
             console.log("section start")
@@ -36,78 +53,51 @@ export default {
 
             evt.dataTransfer.effectAllowed = "move";
             this.sectionDraggableElement = evt.target.closest(".section-container")
-            // if(evt.target.getAttribute("class").search("task-wrapper") > -1) return
-            //
-            // evt.dataTransfer.dropEffect = 'move'
-            // evt.dataTransfer.effectAllowed = 'move'
-            //
-            // let currentElement = evt.target.closest(".puresol-canvas-wrapper")
-            // this.firstDragItem = currentElement
         },
         onDragOverSection(evt){
             evt.dataTransfer.dropEffect = "move";
 
-
             let currentSection = evt.target.closest(".section-container")
 
             if(currentSection instanceof HTMLElement){
 
-                if(this.sectionOverElement && this.sectionOverElement !== currentSection && this.beforeSectionStyles){
-                    let beforeElementId = this.sectionOverElement.getAttribute("id")
-                    this.sectionOverElement.style.backgroundColor = this.beforeSectionStyles[beforeElementId].backgroundColor
-                }
 
-                currentSection.style.backgroundColor = "red"
+                document.getElementById("section-container-placeholder-id")?.remove()
+
+                let screen = currentSection.getBoundingClientRect()
+                // currentSection.style.backgroundColor = "red"
+                let medianLine = Math.ceil(screen.width * .6) + screen.x
+
+                this.insertPlaceholderSection(currentSection,evt.clientX >= medianLine ? "after" : "before")
 
                 this.sectionOverElement = currentSection
             }
-
-            // let currentElement = evt.target.closest(".puresol-canvas-wrapper")
-            // if(currentElement.getAttribute("class").search("drop-zone") > -1)
-            //     return
-            //
-            // currentElement.style.opacity = ".8"
-            // currentElement.style.border = "2px dashed #ccc"
         },
         onDropSection (evt) {
-            let currentSection = evt.target.closest(".section-container")
 
-            if(currentSection instanceof HTMLElement){
-                if(this.sectionOverElement){
-                    let currentElementId = this.sectionOverElement.getAttribute("id")
-                    currentSection.style.backgroundColor = this.beforeSectionStyles[currentElementId].backgroundColor
-                }
-            }
-            // let currentElement = evt.target.closest(".section-container")
-            // if(currentElement.getAttribute("class").search("drop-zone") > -1)
-            //     return
-            // if(currentElement.draggable)
-            //     this.secondDragItem = currentElement
-            // this.arrayMove(
-            //     this.sections,
-            //     this.firstDragItem.getAttribute("dragKey"),
-            //     this.secondDragItem.getAttribute("dragKey")
-            // )
+            document.getElementById("section-container-placeholder-id")?.remove()
+            // let currentSection = evt.target.closest(".section-container")
+            //
+            // if(currentSection instanceof HTMLElement){
+            //     if(this.sectionOverElement){
+            //         let currentElementId = this.sectionOverElement.getAttribute("id")
+            //         currentSection.style.backgroundColor = this.beforeSectionStyles[currentElementId].backgroundColor
+            //     }
+            // }
         },
         onDragLeaveSection(evt){
+            let currentSection = evt.target.closest(".task-wrapper")
 
-            if(this.sectionOverElement){
-                let beforeElementId = this.sectionOverElement.getAttribute("id")
-                this.sectionOverElement.style.backgroundColor = this.beforeSectionStyles[beforeElementId].backgroundColor
+            if(!currentSection instanceof HTMLElement){
+                if(this.sectionOverElement){
+                    document.getElementById("section-container-placeholder-id")?.remove()
+                }
             }
-            // let currentElement = evt.target.closest(".puresol-canvas-wrapper")
-            // if(currentElement.getAttribute("class").search("drop-zone") > -1)
-            //     return
-            // if(currentElement.draggable)
-            //     currentElement.style.backgroundColor = "red"
-            // currentElement.style.opacity = "1"
-            // currentElement.style.border = "none"
         },
         endDragSection(evt){
             this.sectionDraggableElement = null
             this.taskDragDropEvent = true
 
-            // if(!this.secondDragItem) return
 
 
         },
@@ -122,17 +112,21 @@ export default {
         // ONLY TASK METHODS
         // ONLY TASK METHODS
         // ONLY TASK METHODS
-        insertPlaceholderTask(currentTask){
-            let placeholderTask = document.createElement("div")
-            placeholderTask.setAttribute("class", "task-wrapper-placeholder")
-            placeholderTask.setAttribute("id", "task-wrapper-placeholder-id")
-            placeholderTask.textContent = "Drop Here"
-            placeholderTask.addEventListener("dragend", this.endDragTask)
-            placeholderTask.addEventListener("dragstart", this.startDragTask)
-            placeholderTask.addEventListener("dragleave", (evt)=>{evt.target.remove()})
-            if(!currentTask.parentNode.querySelectorAll(".task-wrapper-placeholder").length){
-                currentTask.parentNode.insertBefore(placeholderTask, currentTask)
-            }
+        insertPlaceholderTask(currentTask, position="before"){
+                let placeholderTask = document.createElement("div")
+                placeholderTask.setAttribute("class", "task-wrapper-placeholder")
+                placeholderTask.setAttribute("id", "task-wrapper-placeholder-id")
+                placeholderTask.textContent = "Drop Here"
+                placeholderTask.addEventListener("dragend", this.endDragTask)
+                placeholderTask.addEventListener("dragstart", this.startDragTask)
+                placeholderTask.addEventListener("dragleave", (evt)=>{evt.target.remove()})
+                if(!currentTask.parentNode.querySelectorAll(".task-wrapper-placeholder").length){
+                    if(position === "before"){
+                        currentTask.parentNode.insertBefore(placeholderTask, currentTask)
+                        return
+                    }
+                    currentTask.parentNode.insertBefore(placeholderTask, currentTask.nextSibling)
+                }
 
         },
         startDragTask(evt){
@@ -144,16 +138,21 @@ export default {
             this.taskDraggableElement = evt.target.closest(".task-wrapper")
         },
         onDragOverTask(evt){
+
             evt.dataTransfer.dropEffect = "move";
 
             let currentTask = evt.target.closest(".task-wrapper")
 
             if(currentTask instanceof HTMLElement){
 
+
                 document.getElementById("task-wrapper-placeholder-id")?.remove()
 
+                let screen = currentTask.getBoundingClientRect()
                 // currentTask.style.backgroundColor = "red"
-                this.insertPlaceholderTask(currentTask)
+                let medianLine = Math.ceil(screen.height * .75) + screen.y
+
+                this.insertPlaceholderTask(currentTask,evt.clientY >= medianLine ? "after" : "before")
 
                 this.taskOverElement = currentTask
             }

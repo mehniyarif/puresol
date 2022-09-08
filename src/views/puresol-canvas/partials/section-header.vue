@@ -1,6 +1,6 @@
 <template>
 <div class="section-header" :style="styles">
-    <div class="top"></div>
+    <div class="top" @mouseenter="mouseEnterTop" @mouseleave="mouseLeaveTop"></div>
     <input type="text" @input="changeSectionTitle($event, sectionKey)" :value="head" class="title"/>
     <section-dropdown></section-dropdown>
 </div>
@@ -19,11 +19,25 @@ export default {
         topColor: String,
         backgroundColor: String,
     },
+    data(){
+      return{
+          topElementHover: false
+      }
+    },
     computed:{
         styles(){
             return {
-                "--puresol-section-top-color": this.topColor
+                "--puresol-section-top-color": this.topColor,
+                "--puresol-section-top-padding": this.topElementHover ? "40px" : "20px"
             }
+        }
+    },
+    methods:{
+        mouseEnterTop(){
+            this.topElementHover = true
+        },
+        mouseLeaveTop(){
+            this.topElementHover = false
         }
     }
 }
@@ -37,11 +51,11 @@ export default {
   justify-content: space-between;
   align-items: center;
   gap: 104px;
-
+  transition: all 500ms ease-in-out;
   position: relative;
   width: 100%;
   height: max-content;
-  padding: 20px 15px;
+  padding: var(--puresol-section-top-padding) 15px 20px 15px;
   background: #F4F6F9;
 
   .top{
@@ -52,6 +66,10 @@ export default {
     top: 0;
     border-radius: 5px 5px 0 0;
     background: linear-gradient(90.05deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%), var(--puresol-section-top-color);
+    &:hover{
+      height: 30px;
+      cursor: move;
+    }
   }
 
   .title {
