@@ -1,6 +1,6 @@
 {
   "name": "puresol",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "private": false,
   "scripts": {
     "start": "node server.js",
