@@ -66,6 +66,17 @@ export default {
   box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
   border-radius: 2px;
   border: 2px dashed rgba(118, 96, 126, 0.15);
+  position: relative;
+  &:before{
+    position: absolute;
+    top: -20px;
+    content: " ";
+    background-color: transparent;
+    left: -15px;
+    z-index: 2;
+    width: calc(100% + 30px);
+    height: calc(100% + 40px);
+  }
 }
 .task-wrapper {
   display: flex;
