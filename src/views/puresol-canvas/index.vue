@@ -1,8 +1,8 @@
 <template>
-    <div class="puresol-canvas-wrapper">
+    <div class="puresol-canvas-wrapper" :key="canvasKey">
 
         <section-container class="section-container"
-                           @drop="onDrop($event, 1)"
+                           @drop="onDrop"
                            @dragenter.prevent
                            @dragover.prevent="onDragOver"
                            @dragleave.prevent="onDragLeave"
@@ -17,13 +17,13 @@
                            :sectionDragKey="sectionKey"
                            @dragend="endDragSection($event, section)"
                            @dragstart="startDragSection($event, section)">
-
             <task v-for="(task, taskKey) in section.tasks"
                   :key="taskKey" v-bind="task"
                   :id="`section-${sectionKey}-task-${taskKey}`"
                   :draggable="taskDragDropEvent"
                   @dragend="endDragTask($event, task)"
-                  :sectionDragKey="taskKey"
+                  :sectionDragKey="sectionKey"
+                  :taskDragKey="taskKey"
                   @dragstart="startDragTask($event, task)"
             ></task>
         </section-container>

@@ -1,5 +1,41 @@
 export default {
     methods: {
+        sectionMove(oldIndex, newIndex){
+            if (newIndex >= this.sections.length) {
+                let k = newIndex - this.sections.length + 1;
+                while (k--) {
+                    this.sections.push(undefined);
+                }
+            }
+            this.sections.splice(newIndex, 0, this.sections.splice(oldIndex, 1)[0]);
+            return this.sections; // for testing
+        },
+        sameSectionTaskMove(oldIndex, newIndex, sectionIndex){
+            if (newIndex >= this.sections[sectionIndex].tasks.length) {
+                let k = newIndex - this.sections[sectionIndex].tasks.length + 1;
+                while (k--) {
+                    this.sections[sectionIndex].tasks.push(undefined);
+                }
+            }
+            this.sections[sectionIndex].tasks.splice(newIndex, 0, this.sections[sectionIndex].tasks.splice(oldIndex, 1)[0]);
+        },
+        differentSectionTaskMove(oldIndex, newIndex, oldParentIndex, newParentIndex){
+            let task = this.sections[oldParentIndex].tasks[oldIndex]
+            this.sections[newParentIndex].tasks.splice(newIndex, 0, task);
+            this.sections[oldParentIndex].tasks.splice(oldIndex, 1);
+        },
+        arrayMove(oldIndex, newIndex, oldParentIndex, newParentIndex) {
+            if(oldParentIndex === newParentIndex){
+                 this.sameSectionTaskMove(oldIndex, newIndex, oldParentIndex)
+            }
+            else if(oldParentIndex || newParentIndex){
+                 this.differentSectionTaskMove(oldIndex, newIndex, oldParentIndex, newParentIndex,)
+            }else{
+                this.sectionMove(oldIndex, newIndex)
+            }
+            this.canvasKey +=1
+            this.setStorage()
+        },
         onDrop(evt){
             if(this.sectionDragDropEvent){
                 this.onDropSection(evt)
@@ -29,9 +65,13 @@ export default {
             let placeholderSection = document.createElement("div")
             placeholderSection.setAttribute("class", "section-container-placeholder")
             placeholderSection.setAttribute("id", "section-container-placeholder-id")
+            placeholderSection.setAttribute("draggable", this.sectionDragDropEvent)
             placeholderSection.textContent = "Drop Here"
+            placeholderSection.addEventListener("dragover",(evt)=>{evt.preventDefault(); this.onDragOver(evt) })
+            placeholderSection.addEventListener("dragenter",(evt)=>{evt.preventDefault()})
             placeholderSection.addEventListener("dragend", this.endDragSection)
             placeholderSection.addEventListener("dragstart", this.startDragSection)
+            placeholderSection.addEventListener("drop", this.onDrop)
             placeholderSection.addEventListener("dragleave", (evt)=>{evt.target.remove()})
             if(!currentSection.parentNode.querySelectorAll(".section-container-placeholder").length){
                 if(position === "before"){
@@ -44,8 +84,6 @@ export default {
         },
 
         startDragSection(evt){
-            console.log("section start")
-
             let isTask = evt.target.closest(".task-wrapper")
             if(isTask) return // bu kontrol en üstte olacak
 
@@ -74,9 +112,10 @@ export default {
             }
         },
         onDropSection (evt) {
-
-            document.getElementById("section-container-placeholder-id")?.remove()
-            // let currentSection = evt.target.closest(".section-container")
+            let currentSectionPlaceholder = document.getElementById("section-container-placeholder-id")
+            let currentSection = "getAttribute" in currentSectionPlaceholder.nextSibling && currentSectionPlaceholder.nextSibling || currentSectionPlaceholder.previousSibling
+            this.arrayMove(this.sectionDraggableElement.getAttribute("sectionDragKey"), currentSection.getAttribute("sectionDragKey"))
+            currentSectionPlaceholder?.remove()
             //
             // if(currentSection instanceof HTMLElement){
             //     if(this.sectionOverElement){
@@ -116,6 +155,7 @@ export default {
                 let placeholderTask = document.createElement("div")
                 placeholderTask.setAttribute("class", "task-wrapper-placeholder")
                 placeholderTask.setAttribute("id", "task-wrapper-placeholder-id")
+                placeholderTask.setAttribute("draggable", "" )
                 placeholderTask.textContent = "Drop Here"
                 placeholderTask.addEventListener("dragend", this.endDragTask)
                 placeholderTask.addEventListener("dragstart", this.startDragTask)
@@ -130,7 +170,6 @@ export default {
 
         },
         startDragTask(evt){
-            console.log("task start")
             this.sectionDragDropEvent = false
 
             evt.dataTransfer.effectAllowed = "move";
@@ -158,16 +197,40 @@ export default {
             }
         },
         onDropTask(evt) {
-            document.getElementById("task-wrapper-placeholder-id")?.remove()
-            let currentTask = evt.target.closest(".task-wrapper")
+            let sectionDragKey = 0
+            let taskDragKey = 0
+            let currentTaskPlaceholder = document.getElementById("task-wrapper-placeholder-id")
+            let currentSection = evt.target.closest(".section-container")
+            let currentTask = currentSection.querySelector(".task-wrapper")
 
 
-            // if(currentTask instanceof HTMLElement){
-            //     if(this.taskOverElement){
-            //         let currentElementId = this.taskOverElement.getAttribute("id")
-            //         currentTask.style.backgroundColor = this.beforeTaskStyles[currentElementId].backgroundColor
-            //     }
-            // }
+            sectionDragKey = currentSection.getAttribute("sectionDragKey")
+
+            switch (this.sections[sectionDragKey].tasks.length){
+                case 0:
+                    taskDragKey = 0
+                    break;
+                case 1:
+                    if(currentTaskPlaceholder && "getAttribute" in currentTaskPlaceholder.nextSibling){
+                        taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
+                    }else{
+                        taskDragKey = this.sections[sectionDragKey].tasks.length
+                    }
+                    break;
+                default:
+                    if(currentTaskPlaceholder && "getAttribute" in currentTaskPlaceholder.nextSibling){
+                        taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
+                    }else{
+                        taskDragKey = this.sections[sectionDragKey].tasks.length
+                    }
+
+            }
+
+
+            currentTaskPlaceholder?.remove()
+
+            this.arrayMove(this.taskDraggableElement.getAttribute("taskDragKey"), taskDragKey, this.taskDraggableElement.getAttribute("sectionDragKey"), sectionDragKey)
+
         },
         onDragLeaveTask(evt){
 

@@ -1,5 +1,5 @@
 <template>
-<div class="section-header" :style="styles">
+<div class="section-header" :style="styles" >
     <div class="top" @mouseenter="mouseEnterTop" @mouseleave="mouseLeaveTop"></div>
     <input type="text" @input="changeSectionTitle($event, sectionKey)" :value="head" class="title"/>
     <section-dropdown></section-dropdown>

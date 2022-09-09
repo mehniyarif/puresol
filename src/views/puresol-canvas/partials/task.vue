@@ -38,7 +38,7 @@ export default {
     },
     methods:{
         findStatusColor(status){
-            let currentStatus = this.statuses.find(v => v.name === status.toUpperCase())
+            let currentStatus = this.statuses.find(v => v.name === status?.toUpperCase())
             if(currentStatus){
                 return currentStatus.color
             }

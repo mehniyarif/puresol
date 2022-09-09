@@ -1,6 +1,6 @@
 <template>
 <div class="section-container" :style="styles">
-    <section-header v-bind="$props"></section-header>
+    <section-header v-bind="$props" :draggable="false"></section-header>
     <slot></slot>
 </div>
 </template>

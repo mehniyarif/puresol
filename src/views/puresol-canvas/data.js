@@ -10,6 +10,7 @@ export default {
             taskDragDropEvent:true,
             beforeTaskStyles: {},
             beforeSectionStyles: {},
+            canvasKey:0,
             sectionColors: [
                 "#4AF2B6",
                 "#FF7F3F",
@@ -26,13 +27,19 @@ export default {
                     backgroundColor: "#F4F6F9",
                     tasks: [
                         {
-                            status: "PENDING",
+                            status: "COMPLETED",
                             title: "Add task feature",
                             date: "5 March - Wed",
                             point: 5
                         },
                         {
-                            status: "ACTIVE",
+                            status: "PENDING",
+                            title: "New Task Item",
+                            date: "5 March - Wed",
+                            point: 5
+                        },
+                        {
+                            status: "COMPLETED",
                             title: "Delete section feature",
                             date: "5 March - Wed",
                             point: 5
@@ -45,20 +52,32 @@ export default {
                     backgroundColor: "#F9F6F5",
                     tasks: [
                         {
-                            status: "ACTIVE",
+                            status: "COMPLETED",
                             title: "Change section title feature",
                             date: "5 March - Wed",
                             point: 5
                         },
                         {
-                            status: "ON HOLD",
+                            status: "COMPLETED",
                             title: "Canvas data saved in local storage as base64",
                             date: "5 March - Wed",
                             point: 0
                         },
                         {
-                            status: "ON HOLD",
+                            status: "COMPLETED",
                             title: "Section drag and drop feature",
+                            date: "5 March - Wed",
+                            point: 5
+                        },
+                        {
+                            status: "ACTIVE",
+                            title: "New Task Item",
+                            date: "5 March - Wed",
+                            point: 5
+                        },
+                        {
+                            status: "ON HOLD",
+                            title: "New Task Item",
                             date: "5 March - Wed",
                             point: 5
                         }
@@ -70,19 +89,25 @@ export default {
                     backgroundColor: "#F4FAF8",
                     tasks: [
                         {
-                            status: "ACTIVE",
-                            title: "New Task Item",
+                            status: "COMPLETED",
+                            title: "Same Section Task Drag Drop",
                             date: "5 March - Wed",
                             point: 5
                         },
                         {
                             status: "COMPLETED",
-                            title: "New Task Item",
+                            title: "Different Section Task Drag Drop",
                             date: "5 March - Wed",
                             point: 0
                         },
                         {
                             status: "CONFIRMED",
+                            title: "New Task Item",
+                            date: "5 March - Wed",
+                            point: 5
+                        },
+                        {
+                            status: "ACTIVE",
                             title: "New Task Item",
                             date: "5 March - Wed",
                             point: 5
