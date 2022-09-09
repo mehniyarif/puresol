@@ -51,7 +51,7 @@ export default {
   gap: 10px;
   background-color: var(--puresol-section-background-color);
 
-  width: 350px;
+  min-width: 350px;
   height: max-content;
   border-radius: 5px;
 }

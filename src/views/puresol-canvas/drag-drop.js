@@ -8,7 +8,8 @@ export default {
                 }
             }
             this.sections.splice(newIndex, 0, this.sections.splice(oldIndex, 1)[0]);
-            return this.sections; // for testing
+            this.canvasKey +=1
+            this.setStorage()
         },
         sameSectionTaskMove(oldIndex, newIndex, sectionIndex){
             if (newIndex >= this.sections[sectionIndex].tasks.length) {
@@ -30,8 +31,6 @@ export default {
             }
             else if(oldParentIndex || newParentIndex){
                  this.differentSectionTaskMove(oldIndex, newIndex, oldParentIndex, newParentIndex,)
-            }else{
-                this.sectionMove(oldIndex, newIndex)
             }
             this.canvasKey +=1
             this.setStorage()
@@ -114,7 +113,7 @@ export default {
         onDropSection (evt) {
             let currentSectionPlaceholder = document.getElementById("section-container-placeholder-id")
             let currentSection = "getAttribute" in currentSectionPlaceholder.nextSibling && currentSectionPlaceholder.nextSibling || currentSectionPlaceholder.previousSibling
-            this.arrayMove(this.sectionDraggableElement.getAttribute("sectionDragKey"), currentSection.getAttribute("sectionDragKey"))
+            this.sectionMove(this.sectionDraggableElement.getAttribute("sectionDragKey"), currentSection.getAttribute("sectionDragKey"))
             currentSectionPlaceholder?.remove()
             //
             // if(currentSection instanceof HTMLElement){
@@ -160,6 +159,15 @@ export default {
                 placeholderTask.addEventListener("dragend", this.endDragTask)
                 placeholderTask.addEventListener("dragstart", this.startDragTask)
                 placeholderTask.addEventListener("dragleave", (evt)=>{evt.target.remove()})
+
+
+                if(!isNaN(currentTask)){ // eğer currentTask yoksa gelen section key'idir
+                    let currentSection = document.getElementById(`section-${currentTask}`)
+                    if(currentSection.querySelectorAll(".task-wrapper-placeholder").length) return
+                    currentSection.appendChild(placeholderTask)
+                    return
+                }
+
                 if(!currentTask.parentNode.querySelectorAll(".task-wrapper-placeholder").length){
                     if(position === "before"){
                         currentTask.parentNode.insertBefore(placeholderTask, currentTask)
@@ -177,6 +185,11 @@ export default {
             this.taskDraggableElement = evt.target.closest(".task-wrapper")
         },
         onDragOverTask(evt){
+
+            let currentSectionKey = evt.target.closest(".section-container").getAttribute("sectionDragKey")
+            if(!this.sections[currentSectionKey].tasks.length){
+                this.insertPlaceholderTask(currentSectionKey)
+            }
 
             evt.dataTransfer.dropEffect = "move";
 
@@ -206,24 +219,10 @@ export default {
 
             sectionDragKey = currentSection.getAttribute("sectionDragKey")
 
-            switch (this.sections[sectionDragKey].tasks.length){
-                case 0:
-                    taskDragKey = 0
-                    break;
-                case 1:
-                    if(currentTaskPlaceholder && "getAttribute" in currentTaskPlaceholder.nextSibling){
-                        taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
-                    }else{
-                        taskDragKey = this.sections[sectionDragKey].tasks.length
-                    }
-                    break;
-                default:
-                    if(currentTaskPlaceholder && "getAttribute" in currentTaskPlaceholder.nextSibling){
-                        taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
-                    }else{
-                        taskDragKey = this.sections[sectionDragKey].tasks.length
-                    }
-
+            if(currentTaskPlaceholder && this.sections[sectionDragKey].tasks?.length){
+                taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
+            }else{
+                taskDragKey = this.sections[sectionDragKey].tasks.length
             }
 
 
