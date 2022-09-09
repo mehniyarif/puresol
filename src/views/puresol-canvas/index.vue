@@ -88,6 +88,7 @@ body{
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 50px;
+  cursor: pointer;
   padding-inline: 5%;
   position: relative;
   scrollbar-width: thin;

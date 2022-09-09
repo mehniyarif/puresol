@@ -50,7 +50,7 @@ export default {
   margin-top: 10px;
   gap: 10px;
   background-color: var(--puresol-section-background-color);
-
+  cursor: auto;
   min-width: 350px;
   height: max-content;
   border-radius: 5px;

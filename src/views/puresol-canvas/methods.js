@@ -16,11 +16,12 @@ export default {
             this.sections.unshift(
                 {
                     head: `Section ${this.sections.length + 1}`,
-                    topColor: this.sectionColors[this.sections.length -1],
+                    topColor: this.sectionColors[this.sections.length > 7 ? this.sections.length % 7 : this.sections.length - 1],
                     backgroundColor: "#F4F6F9",
                     tasks: []
                 },
             )
+            this.setStorage()
         },
         deleteSection(sectionKey) {
             this.sections.splice(sectionKey, 1)
