@@ -67,6 +67,7 @@ export default {
       width: max-content;
       position: absolute;
       right: 0;
+      z-index: 3;
       top: 20px;
       box-shadow: 0 10px 20px rgba(0,0,0,.1);
       display: flex;

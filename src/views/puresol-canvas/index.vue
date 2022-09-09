@@ -27,6 +27,9 @@
                   @dragstart="startDragTask($event, task)"
             ></task>
         </section-container>
+        <div class="add-section-button" @click="addSection">
+            <puresol-icon name="plus-circle-fill" height="100%" width="100%"></puresol-icon>
+        </div>
     </div>
 </template>
 
@@ -61,11 +64,57 @@ export default {
 }
 </script>
 <style lang="scss">
+body{
+  scrollbar-width: thin;
+  scrollbar-height: thin;
+  scrollbar-color: #ccc;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 14px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 7px;
+    height: 14px;
+  }
+}
 .puresol-canvas-wrapper {
-  width: auto;
+  width: 100vw;
   display: flex;
+  height: 90vh;
+  overflow: scroll;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 50px;
   padding-inline: 5%;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-height: thin;
+  scrollbar-color: #ccc;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 14px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 7px;
+    height: 14px;
+  }
+}
+.add-section-button{
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  right: 48px;
+  bottom: 40px;
+  z-index: 5;
+
+  background: #fff;
+  border-radius: 70px;
 }
 
 </style>

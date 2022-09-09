@@ -12,6 +12,16 @@ export default {
             )
             this.setStorage()
         },
+        addSection(){
+            this.sections.unshift(
+                {
+                    head: `Section ${this.sections.length + 1}`,
+                    topColor: this.sectionColors[this.sections.length -1],
+                    backgroundColor: "#F4F6F9",
+                    tasks: []
+                },
+            )
+        },
         deleteSection(sectionKey) {
             this.sections.splice(sectionKey, 1)
             this.setStorage()
