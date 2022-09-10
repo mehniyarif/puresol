@@ -123,7 +123,11 @@ export default {
 
             let newKey = 0
             if ( "getAttribute" in currentSectionPlaceholder.nextElementSibling && currentSectionPlaceholder.nextElementSibling.getAttribute("id")?.startsWith("section-")){
+
                 newKey = currentSectionPlaceholder.nextElementSibling.getAttribute("sectionDragKey")
+                if(this.sectionDraggableElement.getAttribute("sectionDragKey") < newKey){
+                    newKey -= 1
+                }
             }else{
                 newKey = this.sections.length -1
             }

@@ -84,7 +84,7 @@ export default {
   margin: 0 15px 10px 15px;
   gap: 68px;
   cursor: move;
-  width: 320px;
+  min-width: 320px;
   min-height: 116px;
   transition-delay: 50ms;
   padding: 10px;
