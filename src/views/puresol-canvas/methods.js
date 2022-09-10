@@ -60,14 +60,6 @@ export default {
             let weekDay = date.getDay();
 
             return `${day} ${monthName} - ${weekDays[weekDay]}`;
-        },
-        setBeforeStyles(){
-            document.querySelectorAll(".task-wrapper").forEach((element)=>{
-                this.beforeTaskStyles[element.getAttribute('id')] = {...window.getComputedStyle(element)}
-            })
-            document.querySelectorAll(".section-container").forEach((element)=>{
-                this.beforeSectionStyles[element.getAttribute('id')] = {...window.getComputedStyle(element)}
-            })
-        },
+        }
     }
 }

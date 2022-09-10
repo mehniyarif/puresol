@@ -61,9 +61,6 @@ export default {
     },
     created() {
         this.getStorage()
-    },
-    mounted() {
-        this.setBeforeStyles()
     }
 
 }

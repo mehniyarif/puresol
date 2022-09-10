@@ -8,8 +8,6 @@ export default {
             replaceDragItem:null,
             sectionDragDropEvent:true,
             taskDragDropEvent:true,
-            beforeTaskStyles: {},
-            beforeSectionStyles: {},
             canvasKey:0,
             sectionColors: [
                 "#4AF2B6",
