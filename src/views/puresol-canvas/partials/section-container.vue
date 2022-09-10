@@ -52,6 +52,8 @@ export default {
   background-color: var(--puresol-section-background-color);
   cursor: auto;
   min-width: 350px;
+  width: 350px;
+  max-width: 350px;
   height: max-content;
   border-radius: 5px;
 }
