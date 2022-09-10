@@ -69,7 +69,6 @@ export default {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 300;
   color: rgba(0,0,0,.5);
-  transition-delay: 50ms;
   background: transparent;
   box-shadow: 0 0 2px rgba(118, 96, 126, 0.15);
   border: 2px dashed rgba(118, 96, 126, 0.15);

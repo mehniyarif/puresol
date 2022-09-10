@@ -87,12 +87,19 @@ export default {
             if(isTask) return // bu kontrol en üstte olacak
 
             this.taskDragDropEvent = false
-
-            evt.dataTransfer.effectAllowed = "move";
             this.sectionDraggableElement = evt.target.closest(".section-container")
+            this.sectionDraggableElement.style.visibility = "hidden"
+
+            this.sectionDraggableElement.style.left = `${evt.x - 2000}px`
+            this.sectionDraggableElement.style.top = `${evt.y - 2000}px`
         },
         onDragOverSection(evt){
-            evt.dataTransfer.dropEffect = "move";
+
+            this.sectionDraggableElement.style.visibility = "hidden"
+            this.sectionDraggableElement.style.position = "absolute"
+
+            this.sectionDraggableElement.style.left = `${evt.x - 2000}px`
+            this.sectionDraggableElement.style.top = `${evt.y - 2000}px`
 
             let currentSection = evt.target.closest(".section-container")
 
@@ -102,22 +109,31 @@ export default {
                 document.getElementById("section-container-placeholder-id")?.remove()
 
                 let screen = currentSection.getBoundingClientRect()
-                // currentSection.style.backgroundColor = "red"
-                let medianLine = Math.ceil(screen.width * .6) + screen.x
+                let medianLine = Math.ceil(screen.width * .5) + screen.x
 
-                this.insertPlaceholderSection(currentSection,evt.clientX >= medianLine ? "after" : "before")
+                this.insertPlaceholderSection(currentSection,evt.x >= medianLine ? "after" : "before")
 
                 this.sectionOverElement = currentSection
             }
         },
         onDropSection (evt) {
-            let currentSectionPlaceholder = document.getElementById("section-container-placeholder-id")
-            let currentSection = "getAttribute" in currentSectionPlaceholder.nextSibling && currentSectionPlaceholder.nextSibling || currentSectionPlaceholder.previousSibling
-            this.sectionMove(this.sectionDraggableElement.getAttribute("sectionDragKey"), currentSection.getAttribute("sectionDragKey"))
+
+            let currentSectionPlaceholder = evt.target.closest(".section-container-placeholder")
+            if(!currentSectionPlaceholder) return
+
+            let newKey = 0
+            if ( "getAttribute" in currentSectionPlaceholder.nextElementSibling && currentSectionPlaceholder.nextElementSibling.getAttribute("id")?.startsWith("section-")){
+                newKey = currentSectionPlaceholder.nextElementSibling.getAttribute("sectionDragKey")
+            }else{
+                newKey = this.sections.length -1
+            }
+
+            this.sectionMove(this.sectionDraggableElement.getAttribute("sectionDragKey"), newKey)
+
             currentSectionPlaceholder?.remove()
         },
         onDragLeaveSection(evt){
-            console.log(evt)
+
             let currentSection = evt.target.closest(".task-wrapper")
 
 
@@ -130,7 +146,7 @@ export default {
         endDragSection(evt){
             this.sectionDraggableElement = null
             this.taskDragDropEvent = true
-
+            this.canvasKey += 1
 
 
         },
@@ -226,10 +242,11 @@ export default {
                     taskDragKey = 1
                     break;
                 default:
-                    if(currentTaskPlaceholder && this.sections[sectionDragKey].tasks?.length){
+                    try{
                         taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
-                    }else{
-                        taskDragKey = this.sections[sectionDragKey].tasks.length
+                    }
+                    catch {
+                        taskDragKey = this.sections[sectionDragKey].tasks?.length
                     }
                     break;
             }

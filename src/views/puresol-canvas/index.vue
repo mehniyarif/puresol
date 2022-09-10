@@ -17,15 +17,17 @@
                            :sectionDragKey="sectionKey"
                            @dragend="endDragSection($event, section)"
                            @dragstart="startDragSection($event, section)">
-            <task v-for="(task, taskKey) in section.tasks"
-                  :key="taskKey" v-bind="task"
-                  :id="`section-${sectionKey}-task-${taskKey}`"
-                  :draggable="taskDragDropEvent"
-                  @dragend="endDragTask($event, task)"
-                  :sectionDragKey="sectionKey"
-                  :taskDragKey="taskKey"
-                  @dragstart="startDragTask($event, task)"
-            ></task>
+            <template v-for="(task, taskKey) in section.tasks" >
+                <task v-if="task"
+                      :key="taskKey" v-bind="task"
+                      :id="`section-${sectionKey}-task-${taskKey}`"
+                      :draggable="taskDragDropEvent"
+                      @dragend="endDragTask($event, task)"
+                      :sectionDragKey="sectionKey"
+                      :taskDragKey="taskKey"
+                      @dragstart="startDragTask($event, task)"
+                ></task>
+            </template>
             <div class="no-task" v-if="!section.tasks.length">
                 No Task
             </div>

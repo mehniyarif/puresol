@@ -11,6 +11,8 @@ export default {
             beforeTaskStyles: {},
             beforeSectionStyles: {},
             canvasKey:0,
+            moveTimerCount:0,
+            moveTimeout:null,
             sectionColors: [
                 "#4AF2B6",
                 "#FF7F3F",
