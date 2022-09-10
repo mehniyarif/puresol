@@ -26,6 +26,9 @@
                   :taskDragKey="taskKey"
                   @dragstart="startDragTask($event, task)"
             ></task>
+            <div class="no-task" v-if="!section.tasks.length">
+                No Task
+            </div>
         </section-container>
         <div class="add-section-button" @click="addSection">
             <puresol-icon name="plus-circle-fill" height="100%" width="100%"></puresol-icon>
@@ -81,6 +84,8 @@ body{
   }
 }
 .puresol-canvas-wrapper {
+  user-select: none;
+  -webkit-user-select: none;
   width: 100vw;
   display: flex;
   height: 90vh;
@@ -88,7 +93,6 @@ body{
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 50px;
-  cursor: pointer;
   padding-inline: 5%;
   position: relative;
   scrollbar-width: thin;
@@ -116,6 +120,13 @@ body{
 
   background: #fff;
   border-radius: 70px;
+}
+.no-task{
+
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 </style>

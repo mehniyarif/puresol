@@ -115,16 +115,11 @@ export default {
             let currentSection = "getAttribute" in currentSectionPlaceholder.nextSibling && currentSectionPlaceholder.nextSibling || currentSectionPlaceholder.previousSibling
             this.sectionMove(this.sectionDraggableElement.getAttribute("sectionDragKey"), currentSection.getAttribute("sectionDragKey"))
             currentSectionPlaceholder?.remove()
-            //
-            // if(currentSection instanceof HTMLElement){
-            //     if(this.sectionOverElement){
-            //         let currentElementId = this.sectionOverElement.getAttribute("id")
-            //         currentSection.style.backgroundColor = this.beforeSectionStyles[currentElementId].backgroundColor
-            //     }
-            // }
         },
         onDragLeaveSection(evt){
+            console.log(evt)
             let currentSection = evt.target.closest(".task-wrapper")
+
 
             if(!currentSection instanceof HTMLElement){
                 if(this.sectionOverElement){
@@ -186,7 +181,14 @@ export default {
         },
         onDragOverTask(evt){
 
-            let currentSectionKey = evt.target.closest(".section-container").getAttribute("sectionDragKey")
+            let currentSection = evt.target.closest(".section-container")
+            let currentSectionKey = currentSection.getAttribute("sectionDragKey")
+
+            let noTaskPlaceholder = currentSection.querySelector(".no-task")
+            if(noTaskPlaceholder){
+                noTaskPlaceholder.style.display = "none"
+            }
+
             if(!this.sections[currentSectionKey].tasks.length){
                 this.insertPlaceholderTask(currentSectionKey)
             }
@@ -219,11 +221,19 @@ export default {
 
             sectionDragKey = currentSection.getAttribute("sectionDragKey")
 
-            if(currentTaskPlaceholder && this.sections[sectionDragKey].tasks?.length){
-                taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
-            }else{
-                taskDragKey = this.sections[sectionDragKey].tasks.length
+            switch (this.sections[sectionDragKey].tasks?.length){
+                case 1:
+                    taskDragKey = 1
+                    break;
+                default:
+                    if(currentTaskPlaceholder && this.sections[sectionDragKey].tasks?.length){
+                        taskDragKey = currentTaskPlaceholder.nextSibling.getAttribute("taskDragKey")
+                    }else{
+                        taskDragKey = this.sections[sectionDragKey].tasks.length
+                    }
+                    break;
             }
+
 
 
             currentTaskPlaceholder?.remove()
@@ -234,15 +244,19 @@ export default {
         onDragLeaveTask(evt){
 
             let currentTask = evt.target.closest(".task-wrapper")
+            let currentSection = evt.target.closest(".section-container")
 
             if(!currentTask instanceof HTMLElement){
+
             if(this.taskOverElement){
 
                 document.getElementById("task-wrapper-placeholder-id")?.remove()
-
-                // let beforeElementId = this.taskOverElement.getAttribute("id")
-                // this.taskOverElement.style.backgroundColor = this.beforeTaskStyles[beforeElementId].backgroundColor
             }
+            }
+
+            let noTaskPlaceholder = currentSection?.querySelector(".no-task")
+            if(noTaskPlaceholder){
+                noTaskPlaceholder.style.display = "inherit"
             }
         },
         endDragTask(evt){
