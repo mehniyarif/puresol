@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .task-wrapper-placeholder{
   display: flex;
@@ -84,7 +84,7 @@ export default {
   margin: 0 15px 10px 15px;
   gap: 68px;
   cursor: move;
-  min-width: 320px;
+  width: 320px;
   min-height: 116px;
   transition-delay: 50ms;
   padding: 10px;
